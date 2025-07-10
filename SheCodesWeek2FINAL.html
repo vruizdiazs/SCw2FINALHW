@@ -115,8 +115,17 @@
             heading.innerHTML = newHeading;
         }
 
-        function canApply() {
-            let city = prompt("Where city are you now?");
+        function actualWeather() {
+            let city = prompt("Where are you now?");
+            let temperature = prompt ("What temperature is it?");
+
+            let heading = document.querySelector("h1");
+
+            if (temperature < 0) {
+                heading.innerHTML =
+                    "😓 <br
+                    >"
+            }
             
         }
     </script>
