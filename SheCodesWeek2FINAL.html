@@ -258,7 +258,7 @@
     </div>
 
     <script>
-        // DOM elements
+     
         const currentEmoji = document.getElementById('current-emoji');
         const currentTemp = document.getElementById('current-temp');
         const currentLocation = document.getElementById('current-location');
@@ -329,7 +329,7 @@
             const city = prompt("Enter a city name:", weatherData.city);
             if (!city) return;
             
-            // Simulate fetching temperature for the new city
+          
             const tempInput = prompt("Enter the current temperature in Celsius:", weatherData.temperature);
             if (!tempInput) return;
             
@@ -355,34 +355,33 @@
             } else {
                 weatherData.description = "Hot";
             }
-            
-            // Update UI
+         
             updateWeatherUI();
         }
         
-        // Function to convert Celsius to Fahrenheit
+       
         function celsiusToFahrenheit(celsius) {
             return (celsius * 9/5) + 32;
         }
         
-        // Function to convert Fahrenheit to Celsius
+       
         function fahrenheitToCelsius(fahrenheit) {
             return (fahrenheit - 32) * 5/9;
         }
         
-        // Function to toggle temperature unit
+       
         function toggleUnit(unit) {
             weatherData.unit = unit;
             
-            // Update active button
+          
             celsiusBtn.classList.toggle('active', unit === "C");
             fahrenheitBtn.classList.toggle('active', unit === "F");
             
-            // Update UI
+          
             updateWeatherUI();
         }
         
-        // Event listeners
+      
         changeCityBtn.addEventListener('click', updateCity);
         
         celsiusBtn.addEventListener('click', () => {
@@ -393,7 +392,7 @@
             toggleUnit("F");
         });
         
-        // Initialize the app
+       
         updateWeatherUI();
     </script>
 </body>
