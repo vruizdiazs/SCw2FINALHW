@@ -1,135 +1,400 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Weather App</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast App</title>
     <style>
-      h1,
-      h2,
-      h3 {
-        text-align: center;
-        font-family: Helvetica, Arial, sans-serif;
-      }
-
-      h1 {
-        color: #1a64d6;
-        font-size: 34px;
-        line-height: 48px;
-        margin: 0;
-      }
-
-      h2 {
-        margin: 0;
-
-        font-size: 34px;
-        line-height: 48px;
-        font-weight: 400;
-      }
-
-      ul {
-        padding: 0;
-      }
-
-      li {
-        list-style: none;
-        text-align: center;
-        padding: 10px 0;
-        border-radius: 10px;
-        transition: all 200ms ease-in-out;
-        max-width: 400px;
-        margin: 0 auto;
-      }
-
-      li:hover {
-        background: #fffbef;
-      }
-
-      p {
-        font-size: 18px;
-        opacity: 0.7;
-        text-align: center;
-        font-family: monospace;
-      }
-
-      button {
-        display: block;
-        margin: 20px auto;
-        border: 1px solid #1a64d6;
-        background: #1a64d6;
-        color: #fff;
-        font-size: 16px;
-        line-height: 22px;
-        padding: 16px 24px;
-        border-radius: 30px;
-        transition: all 200ms ease;
-        box-shadow: rgba(37, 39, 89, 0.08) 0px 8px 8px 0;
-        cursor: pointer;
-      }
-
-      button:hover {
-        background: white;
-        color: #1a64d6;
-        border: 1px solid #1a64d6;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>
-      🌤
-      <br />
-      Currently 21° in Tokyo
-    </h1>
-    <h2>13° / <strong>23°</strong></h2>
-    <ul>
-      <li>
-        <h3>
-          🌧Tomorrow
-        </h3>
-        <p>10° / <strong>22°</strong></p>
-      </li>
-      <li>
-        <h3>
-          🌥 Saturday
-        </h3>
-        <p>15° / <strong>17°</strong></p>
-      </li>
-      <li>
-        <h3>
-          ☀️ Sunday
-        </h3>
-        <p>25° / <strong>28°</strong></p>
-      </li>
-    </ul>
-    <button>
-      Change city
-    </button>
-    <p>
-      Coded by Vania RuizD S.
-    </p>
-    
-    <script>
-        function updateCity(newHeading) {
-            let heading = document.querySelector("h1");
-            let heading.innerHTML = newHeading;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        function actualWeather() {
-            let city = prompt("Where are you now?");
-            let temperature = prompt ("What temperature is it?");
-
-            let heading = document.querySelector("h1");
-
-            if (temperature < 0) {
-                heading.innerHTML("😓 ${actualWeather}! temperature °C in ${updateCity}!")
-            } else {
-                 heading.innerHTML("😊 ${actualWeather}! temperature °C in ${updateCity}!")
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a64d6, #4cc9f0);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        header {
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #1a64d6;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .current-weather {
+            margin-bottom: 30px;
+        }
+        
+        .current-weather .emoji {
+            font-size: 80px;
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+        
+        .current-weather .temperature {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .current-weather .location {
+            font-size: 28px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .current-weather .description {
+            font-size: 20px;
+            color: #444;
+            font-style: italic;
+        }
+        
+        .forecast {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .forecast h2 {
+            color: #1a64d6;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .forecast-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+        }
+        
+        .forecast-item {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .forecast-item:hover {
+            transform: translateY(-5px);
+            background-color: #fffbef;
+        }
+        
+        .forecast-item .day {
+            font-weight: 600;
+            color: #1a64d6;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        
+        .forecast-item .weather-emoji {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .forecast-item .temps {
+            font-size: 16px;
+            color: #555;
+        }
+        
+        .forecast-item .high {
+            font-weight: 700;
+            color: #e63946;
+        }
+        
+        .controls {
+            margin-bottom: 20px;
+        }
+        
+        button {
+            background: #1a64d6;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(26, 100, 214, 0.4);
+        }
+        
+        button:hover {
+            background: #0d4eb5;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 100, 214, 0.6);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        .footer {
+            color: #666;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        
+        .temp-scale {
+            margin-top: 15px;
+            font-size: 16px;
+            color: #555;
+        }
+        
+        .temp-scale span {
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+        
+        .temp-scale span.active {
+            background-color: #1a64d6;
+            color: white;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 15px;
             }
             
-            let changeButton = document.querySelector("button");
-            changeButton.addEventListener("click", updateCity);
+            h1 {
+                font-size: 28px;
+            }
+            
+            .current-weather .emoji {
+                font-size: 60px;
+            }
+            
+            .current-weather .temperature {
+                font-size: 48px;
+            }
+            
+            .current-weather .location {
+                font-size: 22px;
+            }
+            
+            .forecast-list {
+                grid-template-columns: 1fr;
+            }
         }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Weather Forecast</h1>
+        </header>
+        
+        <main>
+            <div class="current-weather">
+                <div class="emoji" id="current-emoji">🌤</div>
+                <div class="temperature" id="current-temp">21°</div>
+                <div class="location" id="current-location">Tokyo</div>
+                <div class="description" id="weather-desc">Partly Cloudy</div>
+            </div>
+            
+            <div class="forecast">
+                <h2>3-Day Forecast</h2>
+                <ul class="forecast-list">
+                    <li class="forecast-item">
+                        <div class="day">Tomorrow</div>
+                        <div class="weather-emoji">🌧</div>
+                        <div class="temps">10° / <span class="high">22°</span></div>
+                    </li>
+                    <li class="forecast-item">
+                        <div class="day">Saturday</div>
+                        <div class="weather-emoji">🌥</div>
+                        <div class="temps">15° / <span class="high">17°</span></div>
+                    </li>
+                    <li class="forecast-item">
+                        <div class="day">Sunday</div>
+                        <div class="weather-emoji">☀️</div>
+                        <div class="temps">25° / <span class="high">28°</span></div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="controls">
+                <button id="change-city">
+                    <span>Change City</span>
+                </button>
+            </div>
+            
+            <div class="temp-scale">
+                <span id="celsius" class="active">°C</span> | 
+                <span id="fahrenheit">°F</span>
+            </div>
+        </main>
+        
+        <footer>
+            <p class="footer">Coded by Vania RuizD S.</p>
+        </footer>
+    </div>
+
+    <script>
+        // DOM elements
+        const currentEmoji = document.getElementById('current-emoji');
+        const currentTemp = document.getElementById('current-temp');
+        const currentLocation = document.getElementById('current-location');
+        const weatherDesc = document.getElementById('weather-desc');
+        const changeCityBtn = document.getElementById('change-city');
+        const celsiusBtn = document.getElementById('celsius');
+        const fahrenheitBtn = document.getElementById('fahrenheit');
+        
+        // Initial weather data
+        let weatherData = {
+            city: "Tokyo",
+            temperature: 21,
+            description: "Partly Cloudy",
+            emoji: "🌤",
+            unit: "C",
+            forecast: [
+                { day: "Tomorrow", low: 10, high: 22, emoji: "🌧" },
+                { day: "Saturday", low: 15, high: 17, emoji: "🌥" },
+                { day: "Sunday", low: 25, high: 28, emoji: "☀️" }
+            ]
+        };
+        
+        // Function to update the UI with current weather data
+        function updateWeatherUI() {
+            currentLocation.textContent = weatherData.city;
+            weatherDesc.textContent = weatherData.description;
+            
+            // Set emoji based on temperature
+            let emoji = "☀️";
+            if (weatherData.temperature < 0) {
+                emoji = "❄️";
+            } else if (weatherData.temperature < 10) {
+                emoji = "🌧";
+            } else if (weatherData.temperature < 20) {
+                emoji = "🌤";
+            } else {
+                emoji = "☀️";
+            }
+            
+            currentEmoji.textContent = emoji;
+            
+            // Display temperature in current unit
+            currentTemp.textContent = weatherData.temperature + "°";
+            
+            // Update forecast items
+            const forecastItems = document.querySelectorAll('.forecast-item');
+            forecastItems.forEach((item, index) => {
+                const forecast = weatherData.forecast[index];
+                item.querySelector('.day').textContent = forecast.day;
+                item.querySelector('.weather-emoji').textContent = forecast.emoji;
+                
+                let low = forecast.low;
+                let high = forecast.high;
+                
+                // Convert to Fahrenheit if needed
+                if (weatherData.unit === "F") {
+                    low = celsiusToFahrenheit(low);
+                    high = celsiusToFahrenheit(high);
+                }
+                
+                item.querySelector('.temps').innerHTML = 
+                    `${Math.round(low)}° / <span class="high">${Math.round(high)}°</span>`;
+            });
+        }
+        
+        // Function to update city and temperature
+        function updateCity() {
+            const city = prompt("Enter a city name:", weatherData.city);
+            if (!city) return;
+            
+            // Simulate fetching temperature for the new city
+            const tempInput = prompt("Enter the current temperature in Celsius:", weatherData.temperature);
+            if (!tempInput) return;
+            
+            const temperature = parseFloat(tempInput);
+            if (isNaN(temperature)) {
+                alert("Please enter a valid number for temperature");
+                return;
+            }
+            
+            // Update weather data
+            weatherData.city = city;
+            weatherData.temperature = temperature;
+            
+            // Update description based on temperature
+            if (temperature < 0) {
+                weatherData.description = "Freezing Cold";
+            } else if (temperature < 10) {
+                weatherData.description = "Chilly";
+            } else if (temperature < 20) {
+                weatherData.description = "Mild";
+            } else if (temperature < 30) {
+                weatherData.description = "Warm";
+            } else {
+                weatherData.description = "Hot";
+            }
+            
+            // Update UI
+            updateWeatherUI();
+        }
+        
+        // Function to convert Celsius to Fahrenheit
+        function celsiusToFahrenheit(celsius) {
+            return (celsius * 9/5) + 32;
+        }
+        
+        // Function to convert Fahrenheit to Celsius
+        function fahrenheitToCelsius(fahrenheit) {
+            return (fahrenheit - 32) * 5/9;
+        }
+        
+        // Function to toggle temperature unit
+        function toggleUnit(unit) {
+            weatherData.unit = unit;
+            
+            // Update active button
+            celsiusBtn.classList.toggle('active', unit === "C");
+            fahrenheitBtn.classList.toggle('active', unit === "F");
+            
+            // Update UI
+            updateWeatherUI();
+        }
+        
+        // Event listeners
+        changeCityBtn.addEventListener('click', updateCity);
+        
+        celsiusBtn.addEventListener('click', () => {
+            toggleUnit("C");
+        });
+        
+        fahrenheitBtn.addEventListener('click', () => {
+            toggleUnit("F");
+        });
+        
+        // Initialize the app
+        updateWeatherUI();
     </script>
-  </body>
+</body>
 </html>
