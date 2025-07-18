@@ -106,7 +106,7 @@
       Change city
     </button>
     <p>
-      Coded by Vania Ruiz Diaz S.
+      Coded by Vania RuizD S.
     </p>
     
     <script>
@@ -122,10 +122,9 @@
             let heading = document.querySelector("h1");
 
             if (temperature < 0) {
-                heading.innerHTML =
-                    "😓 <br/>Currently" = temperature = °C in " + city ;
+                heading.innerHTML("😓 ${actualWeather}! temperature °C in ${updateCity}!")
             } else {
-                 "😊 <br/>Currently" = temperature = °C in " + city;
+                 heading.innerHTML("😊 ${actualWeather}! temperature °C in ${updateCity}!")
             }
             
             let changeButton = document.querySelector("button");
